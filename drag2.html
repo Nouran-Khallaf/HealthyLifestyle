@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit and Food Selection</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .food-image {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .food-image:hover {
+            border-color: #aaa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropzone {
+            width: 45%;
+            min-height: 200px;
+            margin: 10px;
+            padding: 10px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .dropzone:hover {
+            background-color: #f9f9f9;
+        }
+
+        .dropzone p {
+            margin: 0;
+            padding: 40px 0;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fruit and Food Selection</h2>
+        <p>Drag and drop the foods into the appropriate category.</p>
+        <div>
+            <div class="dropzone" id="healthy-dropzone" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+                <p>Drop healthy foods here</p>
+            </div>
+            <div class="dropzone" id="unhealthy-dropzone" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+                <p>Drop unhealthy foods here</p>
+            </div>
+        </div>
+        <div id="food-container">
+            <img src="images/broccoli.webp" alt="Broccoli" class="food-image" id="broccoli" draggable="true" ondragstart="drag(event)">
+            <img src="images/orange.webp" alt="Orange" class="food-image" id="orange" draggable="true" ondragstart="drag(event)">
+            <img src="images/candy.jpg" alt="Candy" class="food-image" id="candy" draggable="true" ondragstart="drag(event)">
+            <img src="images/pear.webp" alt="Pear" class="food-image" id="pear" draggable="true" ondragstart="drag(event)">
+            <img src="images/banana.webp" alt="Banana" class="food-image" id="banana" draggable="true" ondragstart="drag(event)">
+            <img src="images/tacos.webp" alt="Tacos" class="food-image" id="tacos" draggable="true" ondragstart="drag(event)">
+            <img src="images/spinach.webp" alt="Spinach" class="food-image" id="spinach" draggable="true" ondragstart="drag(event)">
+            <img src="images/donut.webp" alt="Donut" class="food-image" id="donut" draggable="true" ondragstart="drag(event)">
+            <img src="images/tomato.webp" alt="Tomato" class="food-image" id="tomato" draggable="true" ondragstart="drag(event)">
+            <img src="images/mango.webp" alt="Mango" class="food-image" id="mango" draggable="true" ondragstart="drag(event)">
+            <img src="images/burger.webp" alt="Burger" class="food-image" id="burger" draggable="true" ondragstart="drag(event)">
+            <img src="images/french-fries.webp" alt="French Fries" class="food-image" id="french-fries" draggable="true" ondragstart="drag(event)">
+            <img src="images/ice-cream.webp" alt="Ice Cream" class="food-image" id="ice-cream" draggable="true" ondragstart="drag(event)">
+            <img src="images/apple.webp" alt="Apple" class="food-image" id="apple" draggable="true" ondragstart="drag(event)">
+            <img src="images/watermelon.webp" alt="Watermelon" class="food-image" id="watermelon" draggable="true" ondragstart="drag(event)">
+            <img src="images/pizza.webp" alt="Pizza" class="food-image" id="pizza" draggable="true" ondragstart="drag(event)">
+            <img src="images/carrot.webp" alt="Carrot" class="food-image" id="carrot" draggable="true" ondragstart="drag(event)">
+            <img src="images/chips.jpg" alt="Chips" class="food-image" id="chips" draggable="true" ondragstart="drag(event)">
+            <img src="images/soda.webp" alt="Soda" class="food-image" id="soda" draggable="true" ondragstart="drag(event)">
+            <img src="images/cookies.webp" alt="Cookies" class="food-image" id="cookies" draggable="true" ondragstart="drag(event)">
+        </div>
+    </div>
+
+    <script>
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event, dropzone) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("text");
+            var element = document.getElementById(data);
+            if ((dropzone.id === "healthy-dropzone" && isHealthyFood(element.alt)) || 
+                (dropzone.id === "unhealthy-dropzone" && !isHealthyFood(element.alt))) {
+                dropzone.appendChild(element);
+                element.style.margin = "10px auto";
+            } else {
+                alert("This food item does not belong here!");
+            }
+        }
+
+        function isHealthyFood(foodName) {
+            var healthyFoods = ["Apple", "Banana", "Mango", "Orange", "Watermelon", "Broccoli", "Carrot", "Pear", "Spinach", "Tomato"];
+            return healthyFoods.includes(foodName);
+        }
+    </script>
+</body>
+</html>
